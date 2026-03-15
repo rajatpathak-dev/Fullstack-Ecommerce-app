@@ -2,7 +2,7 @@ package com.ecom.ecommerceapp.model;
 
 public class Category {
 
-    private  Long categoryId;
+    private  long categoryId;
     private String categoryName;
 
     public String getCategoryName() {
@@ -13,7 +13,7 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public Long getCategoryId() {
+    public long getCategoryId() {
         return categoryId;
     }
 
