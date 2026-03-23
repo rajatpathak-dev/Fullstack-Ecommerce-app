@@ -1,23 +1,26 @@
 package com.ecom.ecommerceapp.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.boot.model.relational.Sequence;
+
+
+@Entity(name = "Category_Table")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Category {
 
-    private  long categoryId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  Long categoryId;
+
+    @NotEmpty
     private String categoryName;
 
-    public String getCategoryName() {
-        return categoryName;
-    }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
 
-    public long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
 }

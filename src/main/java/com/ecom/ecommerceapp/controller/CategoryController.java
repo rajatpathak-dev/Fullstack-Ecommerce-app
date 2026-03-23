@@ -2,6 +2,7 @@ package com.ecom.ecommerceapp.controller;
 
 import com.ecom.ecommerceapp.model.Category;
 import com.ecom.ecommerceapp.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,14 @@ public class CategoryController {
     }
 
     @PostMapping("/categories")
-    public ResponseEntity<Category> addProduct(@RequestBody Category category){
+    public ResponseEntity<Category> addProduct(@Valid @RequestBody Category category){
         return new ResponseEntity<>(categoryService.addCategory(category), HttpStatus.OK);
     }
 
     @DeleteMapping("/categories/{categoryId}")
-    public ResponseEntity<Boolean> deleteCategory(@PathVariable("categoryId") long categoryId){
-        return new ResponseEntity<>(categoryService.deleteCategory(categoryId), HttpStatus.OK);
+    public ResponseEntity<Void> deleteCategory(@PathVariable("categoryId") long categoryId){
+        categoryService.deleteCategory(categoryId);
+        return ResponseEntity.ok().build();
     }
+
 }

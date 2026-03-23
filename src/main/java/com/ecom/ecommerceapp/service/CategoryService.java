@@ -1,42 +1,37 @@
 package com.ecom.ecommerceapp.service;
 
 import com.ecom.ecommerceapp.model.Category;
+import com.ecom.ecommerceapp.repository.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
+@RequiredArgsConstructor
 public class CategoryService {
 
-    private List<Category> categoryList = new ArrayList<>();
+    private final CategoryRepository categoryRepository;
 
     public List<Category> getAlCategories(){
-        return categoryList;
+        return categoryRepository.findAll();
     }
 
     public Category getCategoriesById(Long categoryId){
 
-        for(Category category : categoryList){
-            if(category.getCategoryId() == categoryId){
-                return category;
-            }
-        }
-        return null;
+        return categoryRepository.findById(categoryId).orElse(new Category());
     }
 
     public Category addCategory(Category category){
-        categoryList.add(category);
-        return category;
+
+        return categoryRepository.save(category);
     }
 
-    public boolean deleteCategory(Long categoryId){
+    public void deleteCategory(Long categoryId){
 
-        for(Category category : categoryList){
-            if(category.getCategoryId() == categoryId){
-                return true;
-            }
-        }
-        return false;
+        boolean isCategoryPresent  = categoryRepository.findById(categoryId).isEmpty();
+        categoryRepository.deleteById(categoryId);
+
     }
 }
